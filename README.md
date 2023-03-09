@@ -44,6 +44,6 @@ See more details [here]()
 - [xxx]()
 
 ## Literature Review
-[1]
-[2]
-[3]
+[1]     <br>
+[2]     <br>
+[3]     <br>
