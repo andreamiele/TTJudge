@@ -7,7 +7,9 @@ In Spring 2023, I did this personal project in order to create a tennis table re
 See the report [here]()
 
 # Introduction
+This project analyzes ping pong/tennis table games from the ground up, identifying the table, tracking the ball, and detecting events. This information may be used to referee a ping pong game and develop additional training activities.
 
+The rest of this README explains how to gather and clean data, how to identify tables/balls/events, and how that data is utilized by the referee and training games.
 
 # Methods
 ## Data Exploration
