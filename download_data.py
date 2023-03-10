@@ -1,16 +1,21 @@
-# ==============================================================================
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+
+#  ==============================================================================
 # File: download_data.py
-# Project: src
-# Author: Andrea Miele
+# Created: Friday, 10th March 2023 10:40:15 am
+# Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
+# Github: https://www.github.com/andreamiele
 # -----
-# Last Modified:
-# Modified By:
-# -----
-#
+# Last Modified: Friday, 10th March 2023 1:22:59 pm
+# Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 # Downloading all data from the OpenTTGames Dataset: https://lab.osai.ai/datasets/openttgames/
 # You can also download the date here: https://www.kaggle.com/datasets/anshulmehtakaggl/table-tennis-games-dataset-ttnet
-# ==============================================================================
+# -----
+# Copyright (c) 2023
+# 
+#  ==============================================================================
 
 import os
 import sys
