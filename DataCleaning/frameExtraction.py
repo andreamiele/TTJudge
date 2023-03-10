@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 10th March 2023 1:37:58 pm
+# Last Modified: Friday, 10th March 2023 1:41:45 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 # 
@@ -31,3 +31,23 @@ if ROOT_PATH not in sys.path:
 
 def listdir_fullpath(d):
     return [os.path.join(d, f) for f in os.listdir(d)]
+
+class FrameFolders:
+    def __init__(self):
+        self.train_games = listdir_fullpath(ROOT_PATH + "/Data/Train/")
+        self.test_games = listdir_fullpath(ROOT_PATH + "/Data/Test/")
+        self.game_folders = self.train_games + self.test_games
+        
+    def run(self, n=3000):  # Run
+        self.folderscreate()
+        vid_paths = self.load_vid_paths()
+        for i, vid_path in enumerate(vid_paths):
+            print(i, vid_path)
+            self.save_frames(vid_path, n)
+
+
+
+if __name__ == '__main__':
+    x = FrameFolders()
+    self = x
+    x.run()
