@@ -18,5 +18,5 @@ import zipfile
 from os.path import abspath, dirname
 
 R_PATH = dirname(dirname(abspath(__file__)))
-if ROOT_PATH not in sys.path:
+if R_PATH not in sys.path:
     sys.path.append(R_PATH)
