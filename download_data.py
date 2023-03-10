@@ -39,12 +39,16 @@ class DataDownload:
         for path in all:
             if not os.path.exists(path):
                 os.mkdir(path)
-        print("Folders created!")
+        print("Task done! Folders created!")
 
     # TODO
-    # Download list of url path / download videos / check if already downloaded / download zip and unzip and delete zip / download all data files (json etc.)
+    # Download list of url path / download videos / check if already downloaded / download zip and unzip and delete zip / download all other data files (json etc.)
 
 
+    def run(self):  # Run
+        self.folderscreate()
+        self.videosdownload()
+        self.markupsdownload()
 
 if __name__ == '__main__':
     x = DataDownload()
