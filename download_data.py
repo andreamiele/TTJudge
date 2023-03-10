@@ -107,4 +107,4 @@ if __name__ == '__main__':
     x.run()
 
 # TODO
-# Refactor code, comments, etc.
+# Refactor code, comments, change functions names and variable for some etc.
