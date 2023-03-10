@@ -17,6 +17,6 @@ import wget
 import zipfile
 from os.path import abspath, dirname
 
-ROOT_PATH = dirname(dirname(abspath(__file__)))
+R_PATH = dirname(dirname(abspath(__file__)))
 if ROOT_PATH not in sys.path:
-    sys.path.append(ROOT_PATH)
+    sys.path.append(R_PATH)
