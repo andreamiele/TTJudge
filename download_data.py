@@ -42,8 +42,27 @@ class DataDownload:
         print("Task done! Folders created!")
 
     # TODO
-    # Download list of url path / download videos / check if already downloaded / download zip and unzip and delete zip / download all other data files (json etc.)
+    #  s / check if already downloaded / download zip and unzip and delete zip / download all other data files (json etc.)
 
+
+    def videosdownload(self):  # Top Level
+        """
+        downloads all the videos of ping pong gameplay to their folders
+        """
+        test_paths = [f'https://lab.osai.ai/datasets/openttgames/data/test_{i+1}.mp4' for i in range(7)]
+        self.listdownload(test_paths, file_type='Test')
+        train_paths = [f'https://lab.osai.ai/datasets/openttgames/data/game_{i+1}.mp4' for i in range(5)]
+        self.listdownload(train_paths, file_type='Train')
+    
+    def listdownload(self, path_list, file_type='Test'):  # Specific Helper download_videos
+        """
+        given a list of mp4 url paths, this uses wget to download them and put them in a destination path
+        """
+        for i, path in enumerate(path_list):
+            dest_path = R_PATH + f"/Data/{file_type}/Game{i+1}/gameplay.mp4"
+            if not os.path.exists(dest_path):
+                print(f"I'm downloading {path} to {dest_path}...")
+                wget.download(path, out=dest_path)
 
     def run(self):  # Run
         self.folderscreate()
