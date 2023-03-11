@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Saturday, 11th March 2023 1:52:32 pm
+# Last Modified: Saturday, 11th March 2023 1:59:14 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -43,7 +43,7 @@ def load_pickle(path):
     return data
 
 
-def load_game_folders(train=True, test=True):
+def load_games(train=True, test=True):
     x = []
     if train:
         train_path = ROOT_PATH + "/Data/Train"
@@ -53,4 +53,18 @@ def load_game_folders(train=True, test=True):
         test_path = ROOT_PATH + "/Data/Test"
         test_game_paths = listdir_fullpath(test_path)
         x += test_game_paths
+    return x
+
+
+def load_labels(train=True, test=True):  # Run
+    x = []
+    game_folders = load_games(train=train, test=test)
+    for item in game_folders:
+        label_paths = [
+            file
+            for file in listdir_fullpath(item)
+            if file.endswith(".json") and "predictions" not in file
+        ]
+        x += label_paths
+
     return x
