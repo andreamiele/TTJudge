@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Saturday, 11th March 2023 9:11:51 pm
+# Last Modified: Saturday, 11th March 2023 9:19:45 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -83,3 +83,17 @@ def videoStreamLoader(path):
     nb_frames = int(capture.get(cv2.CAP_PROP_FRAME_COUNT))
     stream = CamGear(source=path).start()
     return nb_frames, stream
+
+
+def load_frames(path):
+    frames_path = path.replace(".json", "_frames/")
+    frames = sorted(
+        listdir_fullpath(frames_path), key=lambda x: int(x.split("_")[-1].split(".")[0])
+    )
+    nb = len(frames)
+    tab = []
+    for i in range(4, nb - 4):
+        group = frames[i - 4 : i + 5]
+        tab.append(group)
+
+    return tab
