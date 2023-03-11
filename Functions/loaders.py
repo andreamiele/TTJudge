@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Saturday, 11th March 2023 1:50:06 pm
+# Last Modified: Saturday, 11th March 2023 1:52:32 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -34,6 +34,12 @@ def listdir_fullpath(d):
 def load_json(path):
     with open(path, "r") as f:
         data = json.load(f)
+    return data
+
+
+def load_pickle(path):
+    with open(path, "rb") as f:
+        data = pickle.load(f)
     return data
 
 
