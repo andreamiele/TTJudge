@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Saturday, 11th March 2023 9:09:03 pm
+# Last Modified: Saturday, 11th March 2023 9:09:51 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -29,6 +29,13 @@ if ROOT_PATH not in sys.path:
 
 def listdir_fullpath(d):
     return [os.path.join(d, f) for f in os.listdir(d)]
+
+
+def temporaryClearing():
+    fld = ROOT_PATH + "/Temp/"
+    f = listdir_fullpath(fld)
+    for x in f:
+        os.remove(x)
 
 
 def load_json(path):
@@ -68,10 +75,3 @@ def load_labels(train=True, test=True):  # Run
         x += label_paths
 
     return x
-
-
-def temporaryClearing():
-    fld = ROOT_PATH + "/Temp/"
-    f = listdir_fullpath(fld)
-    for x in f:
-        os.remove(x)
