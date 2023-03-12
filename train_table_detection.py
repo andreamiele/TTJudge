@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Sunday, 12th March 2023 10:39:32 am
+# Last Modified: Sunday, 12th March 2023 10:45:19 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -47,3 +47,22 @@ from Functions.loaders import temporaryClearing, load_json
 
 def listdir_fullpath(d):
     return [os.path.join(d, f) for f in os.listdir(d)]
+
+
+class TableDataset(Dataset):
+    def __init__(self, train):
+        self.train = train
+        self.game_paths = ""
+
+    def load_imgs_corners(self):
+        iPaths = []
+        corners = []
+        for path in self.game_paths:
+            current_img_paths = listdir_fullpath(path + "/frames/")
+            current_corners = load_json(path + "/table.json")
+            iPaths += current_img_paths
+            corners += [current_corners] * len(current_img_paths)
+        x = list(zip(iPaths, corners))
+        random.shuffle(x)
+        iPaths, corners = zip(*x)
+        return list(iPaths), list(corners)
