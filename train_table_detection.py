@@ -7,13 +7,13 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 10th March 2023 2:33:59 pm
+# Last Modified: Sunday, 12th March 2023 10:39:32 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
-# 
+#
 # -----
 # Copyright (c) 2023
-# 
+#
 #  ==============================================================================
 
 import wandb
@@ -40,8 +40,9 @@ ROOT_PATH = dirname(dirname(abspath(__file__)))
 if ROOT_PATH not in sys.path:
     sys.path.append(ROOT_PATH)
 
-#Import utility functions
+# Import utility functions
 from Functions.images import hflip, gaussblur, colorjitter
+from Functions.loaders import temporaryClearing, load_json
 
 
 def listdir_fullpath(d):
