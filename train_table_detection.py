@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Monday, 13th March 2023 9:56:54 am
+# Last Modified: Monday, 13th March 2023 9:59:06 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -116,3 +116,19 @@ class TableDataset(Dataset):
         mask = torch.tensor(mask)
         mask = mask.unsqueeze(0)
         return mask.to("cuda").float()
+
+
+class DoubleConvolution(nn.Module):
+    def __init__(self, in_channels, out_channels):
+        super(DoubleConvolution, self).__init__()
+        self.conv = nn.Sequential(
+            nn.Conv2d(in_channels, out_channels, 3, 1, 1, bias=False),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(out_channels, out_channels, 3, 1, 1, bias=False),
+            nn.BatchNorm2d(out_channels),
+            nn.ReLU(inplace=True),
+        )
+
+    def forward(self, x):
+        return self.conv(x)
