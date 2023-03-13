@@ -4,7 +4,7 @@ In Spring 2023, I did this personal project in order to create a tennis table re
 
 **Andrea Miele**
 
-See the report [here]()
+See the report [here](/Reports/)
 
 # Introduction
 This project analyzes ping pong/tennis table games from the ground up, identifying the table, tracking the ball, and detecting events. This information may be used to referee a ping pong game and develop additional training activities.
