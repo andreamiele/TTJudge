@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Monday, 13th March 2023 9:59:06 am
+# Last Modified: Monday, 13th March 2023 10:05:55 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -132,3 +132,50 @@ class DoubleConvolution(nn.Module):
 
     def forward(self, x):
         return self.conv(x)
+
+
+class UNET(nn.Module):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def forward(self, x):
+
+        return self
+
+
+class Train:
+    def __init__(self) -> None:
+        pass
+
+    def saveInput(self):
+        return self
+
+    def savePrediction(self):
+        return self
+
+    def training(self):
+        return self
+
+    def testing(self):
+        return self
+
+    def run(self):
+        return self
+
+
+def wandbSweep():
+    def trainingWandb(config=none):
+        with wandb.init(config=config):
+            config = wandb.config
+            trainer = Train(
+                batch_size=config.batch_size, learning_rate=config.learning_rate
+            )
+            trainer.run()
+
+    sweepId = ""
+    wandb.agent(sweepId, trainingWandb, count=100)
+
+if __name__ == "__main__":
+    x = Train()
+    x.run()
+    # sweep()
