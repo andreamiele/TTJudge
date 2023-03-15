@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Wednesday, 15th March 2023 2:12:02 pm
+# Last Modified: Wednesday, 15th March 2023 2:16:33 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -309,4 +309,4 @@ def wandbSweep():
 if __name__ == "__main__":
     x = Train()
     x.run()
-    # sweep()
+    # wandbSweep()
