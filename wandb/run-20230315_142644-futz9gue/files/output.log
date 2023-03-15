@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "c:\Users\MIELEA1\Documents\TTJudge\train_table_detection.py", line 316, in <module>
+    x = Train()
+  File "c:\Users\MIELEA1\Documents\TTJudge\train_table_detection.py", line 181, in __init__
+    self.train_dataset = TableDataset(train=True)
+  File "c:\Users\MIELEA1\Documents\TTJudge\train_table_detection.py", line 59, in __init__
+    self.iPaths, self.corners = self.load_imgs_corners()
+  File "c:\Users\MIELEA1\Documents\TTJudge\train_table_detection.py", line 67, in load_imgs_corners
+    current_iPaths = listdir_fullpath(path + "/frames/")
+  File "c:\Users\MIELEA1\Documents\TTJudge\train_table_detection.py", line 49, in listdir_fullpath
+    return [os.path.join(d, f) for f in os.listdir(d)]
+FileNotFoundError: [WinError 3] The system cannot find the path specified: 'c:\\Users\\MIELEA1\\Documents/Data/Train/Game1/frames/'

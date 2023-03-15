@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Wednesday, 15th March 2023 2:16:33 pm
+# Last Modified: Wednesday, 15th March 2023 2:26:31 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -170,21 +170,27 @@ class UNET(nn.Module):
 
 
 class Train:
-    def __init__(self, in_channels=3, out_channels=1, features=[64, 128, 256, 512]):
-        super(UNET, self).__init__()
-        self.ups = nn.ModuleList()
-        self.downs = nn.ModuleList()
-        self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
-        for feature in features:
-            self.downs.append(DoubleConvolution(in_channels, feature))
-            in_channels = feature
-        for feature in reversed(features):
-            self.ups.append(
-                nn.ConvTranspose2d(feature * 2, feature, kernel_size=2, stride=2)
-            )
-            self.ups.append(DoubleConvolution(feature * 2, feature))
-        self.bottleneck = DoubleConvolution(features[-1], features[-1] * 2)
-        self.final_conv = nn.Conv2d(features[0], out_channels, kernel_size=1)
+    def __init__(self, batch_size=32, learning_rate=0.0001, sweep=False):
+        self.batch_size = batch_size
+        self.learning_rate = learning_rate
+        self.epochs = 100000
+        self.wandb = True
+        self.sweep = sweep
+        if self.wandb and (not self.sweep):
+            wandb.init(project="ttjudge", entity="andreamiele")
+        self.train_dataset = TableDataset(train=True)
+        self.train_dataloader = DataLoader(
+            self.train_dataset, batch_size=self.batch_size, shuffle=True
+        )
+        self.test_dataset = TableDataset(train=False)
+        self.test_dataloader = DataLoader(
+            self.test_dataset, batch_size=self.batch_size, shuffle=True
+        )
+        self.model = UNET().to("cuda")
+        # self.model.load_state_dict(torch.load(ROOT_PATH + "/Modeling/Table_Segmentation_UNET_0974651_bs_32_lr_000100.pth"))
+        self.optimizer = optim.Adam(self.model.parameters(), lr=self.learning_rate)
+        self.loss = nn.BCEWithLogitsLoss()
+        self.scaler = torch.cuda.amp.GradScaler()
 
     def save_input(self, X, y, epoch, batch_idx):
         if torch.rand(1).item() > 0.99:

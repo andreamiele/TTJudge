@@ -1,0 +1,42 @@
+{
+    "os": "Windows-10-10.0.19044-SP0",
+    "python": "3.10.5",
+    "heartbeatAt": "2023-03-15T13:26:45.573104",
+    "startedAt": "2023-03-15T13:26:44.602911",
+    "docker": null,
+    "cuda": null,
+    "args": [],
+    "state": "running",
+    "program": "c:\\Users\\MIELEA1\\Documents\\TTJudge\\train_table_detection.py",
+    "codePath": "train_table_detection.py",
+    "git": {
+        "remote": "https://github.com/andreamiele/TTJudge.git",
+        "commit": "579bcf2e2d1a13ad99f586454d32093ac5c9eea3"
+    },
+    "email": "andrea.miele.pro@gmail.com",
+    "root": "C:/Users/MIELEA1/Documents/TTJudge",
+    "host": "RBAMW091168",
+    "username": "MIELEA1",
+    "executable": "C:\\Users\\MIELEA1\\AppData\\Local\\Programs\\Python\\Python310\\python.exe",
+    "cpu_count": 4,
+    "cpu_count_logical": 8,
+    "cpu_freq": {
+        "current": 2611.0,
+        "min": 0.0,
+        "max": 2611.0
+    },
+    "cpu_freq_per_core": [
+        {
+            "current": 2611.0,
+            "min": 0.0,
+            "max": 2611.0
+        }
+    ],
+    "disk": {
+        "total": 236.73836517333984,
+        "used": 208.71074295043945
+    },
+    "memory": {
+        "total": 15.68770980834961
+    }
+}
