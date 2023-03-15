@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Wednesday, 15th March 2023 10:12:10 am
+# Last Modified: Wednesday, 15th March 2023 2:12:02 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -175,36 +175,122 @@ class Train:
         self.ups = nn.ModuleList()
         self.downs = nn.ModuleList()
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
-
-        # * down part
         for feature in features:
             self.downs.append(DoubleConvolution(in_channels, feature))
             in_channels = feature
-
-        # * up part
         for feature in reversed(features):
             self.ups.append(
                 nn.ConvTranspose2d(feature * 2, feature, kernel_size=2, stride=2)
             )
             self.ups.append(DoubleConvolution(feature * 2, feature))
-
         self.bottleneck = DoubleConvolution(features[-1], features[-1] * 2)
         self.final_conv = nn.Conv2d(features[0], out_channels, kernel_size=1)
 
-    def saveInput(self):
-        return self
+    def save_input(self, X, y, epoch, batch_idx):
+        if torch.rand(1).item() > 0.99:
+            for i in range(X.shape[0]):
+                img = X[i]
+                mask = y[i]
+                mask = np.array(transforms.ToPILImage()(mask).convert("RGB"))
+                arr = np.array(transforms.ToPILImage()(img).convert("RGB"))
+                arr = cv2.cvtColor(arr, cv2.COLOR_BGR2RGB)
+                arr = np.maximum(arr, mask)
+                assert cv2.imwrite(
+                    ROOT_PATH + f"/Temp/label_epoch_{epoch}_batch_{batch_idx}_{i}.png",
+                    arr,
+                )
 
-    def savePrediction(self):
-        return self
+    def save_pred(self, X, y, pred, epoch, batch_idx, test=False):
+        if torch.rand(1).item() > 0.9:
+            for i in range(X.shape[0]):
+                mask = pred[i]
+                img = y[i]
+                mask = np.array(transforms.ToPILImage()(mask).convert("RGB"))
+                arr = np.array(transforms.ToPILImage()(img).convert("RGB"))
+                combo = np.hstack((arr, mask))
+                test_str = "Test_" if test else ""
+                assert cv2.imwrite(
+                    ROOT_PATH
+                    + f"/Temp/{test_str}pred_epoch_{epoch}_batch_{batch_idx}_{i}.png",
+                    combo,
+                )
 
-    def training(self):
-        return self
+    def training(self, epoch):
+        self.model.train()
 
-    def testing(self):
-        return self
+        for batch_idx, (X, y) in enumerate(self.train_dataloader):
+            with torch.cuda.amp.autocast():
+                self.save_input(X, y, epoch, batch_idx)
+                pred = self.model(X)
+                binary_pred = (pred > 0.5).float()
+                self.save_pred(X, y, binary_pred, epoch, batch_idx)
+                loss = self.loss(pred, y)
+            self.optimizer.zero_grad()
+            self.scaler.scale(loss).backward()
+            self.scaler.step(self.optimizer)
+            self.scaler.update()
+            if self.wandb:
+                wandb.log({"Train Loss": loss.item()})
+            if batch_idx % 10 == 0:
+                print(
+                    f"Batch {batch_idx+1}/{len(self.train_dataloader)}: Loss: {loss.item()}"
+                )
+            if batch_idx % 150 == 0:
+                self.test_loop(epoch)
+
+    def testing(self, epoch):
+        self.model.eval()
+        num_correct = 0
+        num_pixels = 0
+        dice_score = 0
+
+        with torch.no_grad():
+            for batch_idx, (X, y) in enumerate(self.test_dataloader):
+                preds = torch.sigmoid(self.model(X))
+                loss = self.loss(preds, y)
+                preds = (preds > 0.5).float()
+                self.save_pred(X, y, preds, epoch, batch_idx, test=True)
+                num_correct += (preds == y).sum()
+                num_pixels += torch.numel(preds)
+                dice_score += (2 * (preds * y).sum()) / ((preds + y).sum() + 1e-8)
+
+        if self.wandb:
+            wandb.log(
+                {
+                    "Correct": 100 * (num_correct / num_pixels),
+                    "Dice Score": dice_score / len(self.test_dataloader),
+                    "Test Loss": loss,
+                }
+            )
+
+        print(f"Test Loss: {loss.item()}")
+        print(
+            f"Got {num_correct}/{num_pixels} with acc {num_correct/num_pixels*100:.2f}"
+        )
+        print(f"Dice score: {dice_score/len(self.test_dataloader)}")
+        return dice_score / len(self.test_dataloader)
 
     def run(self):
-        return self
+        temporaryClearing()
+        max_dice = float("-inf")
+        dice_dec_count = 0
+        for i in range(self.epochs):
+            print(f"Epoch {i+1}/{self.epochs}")
+            self.train_loop(i)
+            dice_score = self.test_loop(i)
+            dice_dec_count = dice_dec_count + 1 if dice_score < max_dice else 0
+            if dice_score > max_dice:
+                print("<< Saving model ...>>")
+                dice_str = "{:f}".format(dice_score).replace(".", "")
+                lr_str = "{:f}".format(self.learning_rate)[2:]
+                torch.save(
+                    self.model.state_dict(),
+                    ROOT_PATH
+                    + f"/Modeling/Table_Segmentation_UNET_{dice_str}_bs_{self.batch_size}_lr_{lr_str}.pth",
+                )
+                max_dice = dice_score
+            if dice_dec_count >= 5:
+                print("<<Early stopping>>")
 
 
 def wandbSweep():
