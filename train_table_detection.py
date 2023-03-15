@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Tuesday, 14th March 2023 10:28:47 am
+# Last Modified: Wednesday, 15th March 2023 10:12:10 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -178,15 +178,17 @@ class Train:
 
         # * down part
         for feature in features:
-            self.downs.append(DoubleConv(in_channels, feature))
+            self.downs.append(DoubleConvolution(in_channels, feature))
             in_channels = feature
 
         # * up part
         for feature in reversed(features):
-            self.ups.append(nn.ConvTranspose2d(feature * 2, feature, kernel_size=2, stride=2))
-            self.ups.append(DoubleConv(feature * 2, feature))
+            self.ups.append(
+                nn.ConvTranspose2d(feature * 2, feature, kernel_size=2, stride=2)
+            )
+            self.ups.append(DoubleConvolution(feature * 2, feature))
 
-        self.bottleneck = DoubleConv(features[-1], features[-1] * 2)
+        self.bottleneck = DoubleConvolution(features[-1], features[-1] * 2)
         self.final_conv = nn.Conv2d(features[0], out_channels, kernel_size=1)
 
     def saveInput(self):

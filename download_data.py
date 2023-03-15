@@ -7,14 +7,14 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 10th March 2023 1:22:59 pm
+# Last Modified: Wednesday, 15th March 2023 10:12:08 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 # Downloading all data from the OpenTTGames Dataset: https://lab.osai.ai/datasets/openttgames/
-# You can also download the date here: https://www.kaggle.com/datasets/anshulmehtakaggl/table-tennis-games-dataset-ttnet
+# You can also download the date here: https://www.kaggle.com/datasets/heftyjohnson/openttgames
 # -----
 # Copyright (c) 2023
-# 
+#
 #  ==============================================================================
 
 import os
@@ -47,17 +47,24 @@ class DataDownload:
                 os.mkdir(path)
         print("Task done! Folders created!")
 
-
     def videosdownload(self):  # Top Level
         """
         downloads all the videos of ping pong gameplay to their folders
         """
-        test_paths = [f'https://lab.osai.ai/datasets/openttgames/data/test_{i+1}.mp4' for i in range(7)]
-        self.listdownload(test_paths, file_type='Test')
-        train_paths = [f'https://lab.osai.ai/datasets/openttgames/data/game_{i+1}.mp4' for i in range(5)]
-        self.listdownload(train_paths, file_type='Train')
-    
-    def listdownload(self, path_list, file_type='Test'):  # Specific Helper download_videos
+        test_paths = [
+            f"https://lab.osai.ai/datasets/openttgames/data/test_{i+1}.mp4"
+            for i in range(7)
+        ]
+        self.listdownload(test_paths, file_type="Test")
+        train_paths = [
+            f"https://lab.osai.ai/datasets/openttgames/data/game_{i+1}.mp4"
+            for i in range(5)
+        ]
+        self.listdownload(train_paths, file_type="Train")
+
+    def listdownload(
+        self, path_list, file_type="Test"
+    ):  # Specific Helper download_videos
         """
         given a list of mp4 url paths, this uses wget to download them and put them in a destination path
         """
@@ -67,8 +74,9 @@ class DataDownload:
                 print(f"I'm downloading {path} to {dest_path}...")
                 wget.download(path, out=dest_path)
 
-
-    def zipdownload(self, path_list, file_type='Test'):  # Specific Helper  download_markups
+    def zipdownload(
+        self, path_list, file_type="Test"
+    ):  # Specific Helper  download_markups
         """
         given a list of url paths to zip files, this will download the zip, unpack it in its appropriate game folder, then delete the zip
         """
@@ -78,15 +86,16 @@ class DataDownload:
             if not self.markups_exist(dest_folder):
                 print(f"I'm downloading {path} to {dest_path}...")
                 wget.download(path, dest_path)
-                with zipfile.ZipFile(dest_path, 'r') as zip_ref:
+                with zipfile.ZipFile(dest_path, "r") as zip_ref:
                     zip_ref.extractall(dest_folder)
                 os.remove(dest_path)
+
     def markups_exist(self, dest_folder):  # Helping Helper  _download_zip
         """
         determines if the markup files have been downloaded already in the destination path
         """
         dest_files = os.listdir(dest_folder)
-        markup_files = ['events_markup.json', 'segmentation_masks', 'ball_markup.json']
+        markup_files = ["events_markup.json", "segmentation_masks", "ball_markup.json"]
         for file in markup_files:
             if file not in dest_files:
                 return False
@@ -96,17 +105,24 @@ class DataDownload:
         """
         downloads all the markup files (jsons for ball location, events, and semantic segmentation files)
         """
-        test_paths = [f'https://lab.osai.ai/datasets/openttgames/data/test_{i+1}.zip' for i in range(7)]
-        self.zipdownload(test_paths, file_type='Test')
-        train_paths = [f'https://lab.osai.ai/datasets/openttgames/data/game_{i+1}.zip' for i in range(5)]
-        self.zipdownload(train_paths, file_type='Train')
+        test_paths = [
+            f"https://lab.osai.ai/datasets/openttgames/data/test_{i+1}.zip"
+            for i in range(7)
+        ]
+        self.zipdownload(test_paths, file_type="Test")
+        train_paths = [
+            f"https://lab.osai.ai/datasets/openttgames/data/game_{i+1}.zip"
+            for i in range(5)
+        ]
+        self.zipdownload(train_paths, file_type="Train")
 
     def run(self):  # Run
         self.folderscreate()
         self.videosdownload()
         self.markupsdownload()
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     x = DataDownload()
     self = x
     x.run()
