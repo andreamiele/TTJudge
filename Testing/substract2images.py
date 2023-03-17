@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 11:23:48 am
+# Last Modified: Friday, 17th March 2023 11:28:13 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -17,14 +17,11 @@
 #  ==============================================================================
 
 import cv2
+import numpy as np
 
-circle = cv2.imread("circle.png")
-star = cv2.imread("star.png")
+circle = cv2.imread("Testing\circle.png")
+star = cv2.imread("Testing\star.png")
 subtracted = cv2.subtract(star, circle)
-cv2.imshow("image", subtracted)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
-cv2.waitKey(1)
 
 
 def frameDifference(pframe, frame):
@@ -42,7 +39,9 @@ def frameDifference(pframe, frame):
 
 
 test = frameDifference(circle, star)
-cv2.imshow("image", test)
+
+cv2.imshow("F DIFF", test)
+cv2.imshow("SUBSTR", subtracted)
+
 cv2.waitKey(0)
 cv2.destroyAllWindows()
-cv2.waitKey(1)
