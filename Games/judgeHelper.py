@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 1:02:18 pm
+# Last Modified: Friday, 17th March 2023 1:04:21 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -46,6 +46,8 @@ from Functions.visualization import (
     showTable,
     contourCenter,
     contourMaxMin,
+    wContour,
+    contourDist,
 )
 
 

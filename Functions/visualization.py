@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # GitHub: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 1:00:28 pm
+# Last Modified: Friday, 17th March 2023 1:04:14 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -33,7 +33,7 @@ def colorizeImg(img):
 
 
 def drawContours(img, contours, color):
-    img = img_to_color(img)
+    img = colorizeImg(img)
     img = cv2.drawContours(img, contours, -1, color, 3)
     return img
 
@@ -66,7 +66,7 @@ def wContour(self, contour):
 
 
 def showTable(img, table, color=(100, 100, 100), thickness=2):
-    img = img_to_color(img)
+    img = colorizeImg(img)
     p1, p2, p3, p4 = (
         (table[1], table[0]),
         (table[3], table[2]),
@@ -85,7 +85,7 @@ def show_contour_middle_borders(img, corners):
 
 
 def showEventBox(img, event):
-    img = img_to_color(img)
+    img = colorizeImg(img)
     color = (
         (0, 255, 0)
         if event == "Bounce"
@@ -98,7 +98,7 @@ def showEventBox(img, event):
 
 
 def showArcD(img, data, frame_idx, arc_name, centers_name):
-    img = img_to_color(img)
+    img = colorizeImg(img)
     for arc in data[arc_name]:
         if arc[0] <= frame_idx <= arc[1]:
             for j in range(arc[0], arc[1] + 1):
@@ -109,7 +109,7 @@ def showArcD(img, data, frame_idx, arc_name, centers_name):
 
 
 def showArcDC(img, output, i, arc_type="Interpolated Arcs"):
-    img = img_to_color(img)
+    img = colorizeImg(img)
     for arc in output[arc_type]:
         if arc[0] <= i <= arc[1]:
             for j in range(arc[0], arc[1] + 1):
@@ -129,7 +129,7 @@ def showArcDC(img, output, i, arc_type="Interpolated Arcs"):
 
 
 def showArcL(img, output, i, arc_type="Raw Arcs"):
-    img = img_to_color(img)
+    img = colorizeImg(img)
     for arc in output[arc_type]:
         if arc[0] <= i <= arc[1]:
             x = []
@@ -169,22 +169,31 @@ def showExtrArcC(img, output, i):
 
 
 def showBallBorder(img, corners):
-    img = img_to_color(img)
+    img = colorizeImg(img)
     for c in corners:
         img = cv2.circle(img, (c[0][0], c[0][1]), 2, (0, 0, 255), -1)  # Borders in red
     return img
 
 
 def showBallCenter(img, center, color=(255, 0, 0)):
-    img = img_to_color(img)
+    img = colorizeImg(img)
     c_x, c_y = center
     img = cv2.circle(img, (int(c_x), int(c_y)), 3, color, -1)
     return img
 
 
 def showFrameNb(img, frameNb):
-    img = Image.fromarray(img_to_color(img))
+    img = Image.fromarray(colorizeImg(img))
     draw = ImageDraw.Draw(img)
     font = ImageFont.truetype(ROOT_PATH + "/Games/score_font.ttf", 20)
     draw.text((10, 10), str(frameNb), (255, 255, 255), font=font)
     return np.array(img)
+
+
+def contourDist(self, contour1, contour2):
+    x1, y1 = self._contour_center(contour1)
+    x2, y2 = self._contour_center(contour2)
+    x_dist = abs(x1 - x2)
+    y_dist = abs(y1 - y2)
+    overall_dist = (x_dist**2 + y_dist**2) ** 0.5
+    return overall_dist
