@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 1:04:21 pm
+# Last Modified: Friday, 17th March 2023 1:09:20 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -101,6 +101,29 @@ class JudgeHelper:
         difference = cv2.threshold(difference, 7, 255, cv2.THRESH_BINARY)[1]
         difference = cv2.dilate(difference, None, iterations=2)
         return difference
+
+    def findContours(self, diff):
+        contours, _ = cv2.findContours(diff, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+        contours = [c for c in contours if 6000 > cv2.contourArea(c) > 10]
+        return contours
+
+    def contoursList(self, contours):
+        if not contours:
+            return []
+        contoursList = [[contours[0]]]
+        contours = contours[1:]
+        while len(contours) > 0:
+            current_contour = contours.pop()
+            added = False
+            for i, contour_list in enumerate(contoursList):
+                if self._contour_dist(current_contour, contour_list[-1]) < 40 and (
+                    not added
+                ):
+                    contoursList[i] = contour_list + [current_contour]
+                    added = True
+            if not added:
+                contoursList.append([current_contour])
+        return contoursList
 
     def cleanDictionnary(self):
         data = {
