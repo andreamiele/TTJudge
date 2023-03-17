@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 8:53:37 am
+# Last Modified: Friday, 17th March 2023 9:06:46 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -38,10 +38,6 @@ from os.path import abspath, dirname
 ROOT_PATH = dirname(dirname(abspath(__file__)))
 if ROOT_PATH not in sys.path:
     sys.path.append(ROOT_PATH)
-
-# Import utility functions
-from Functions.images import hflip, gaussblur, colorjitter
-from Functions.loaders import temporaryClearing, load_json
 
 
 def listdir_fullpath(d):
