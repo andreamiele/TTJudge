@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 9:32:40 am
+# Last Modified: Friday, 17th March 2023 10:48:41 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -33,5 +33,20 @@ from Functions.visualization import showTable, showFrameNb
 
 
 class Judge(JudgeHelper):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, start, end, saved):
+        super(JudgeHelper, self).__init__(start, end, saved)
+        self.player1_score = 0
+        self.player2_score = 0
+        self.font = ROOT_PATH + "/Games/score_font.ttf"
+
+    def run():
+        return None
+
+
+if __name__ == "__main__":
+    saved = 0
+    start = 0 - saved
+    end = 0 - saved
+    x = Judge(start, end, saved)
+    self = x
+    video = ROOT_PATH
