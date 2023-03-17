@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 9:36:37 am
+# Last Modified: Friday, 17th March 2023 9:49:03 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -43,3 +43,26 @@ from Functions.visualization import (
     showFrameNb,
     showTable,
 )
+
+
+class JudgeHelper:
+    def __init__(self, start, end, saved):
+        self.start = start
+        self.end = end
+        self.saved = saved
+
+    def saveImgs():
+        return None
+
+    def runGame():
+        return None
+
+
+if __name__ == "__main__":
+    saved = 0
+    start = 0 - saved
+    end = 0 - saved
+    x = JudgeHelper(start, end, saved)
+    self = x
+    path = ROOT_PATH + "/Data/Train/xxx"
+    x.runGame()
