@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 11:01:25 am
+# Last Modified: Friday, 17th March 2023 11:24:18 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -16,6 +16,8 @@
 #
 #  ==============================================================================
 import sys
+
+sys.path.append("/usr/local/lib/python3.10.5/site-packages")
 from os.path import abspath, dirname
 import cv2
 import numpy as np
@@ -63,12 +65,25 @@ class JudgeHelper:
 
     def detectTable(self, output, frame, frame_idx):  # Top Level
         """
-        detecting the table with semantic segmentation inside the frame
+        detecting the table with segmentation inside the frame
         """
         # TODO run the actual segmentation model
         table = [1, 1, 1, 1, 1, 1, 1, 1]
         output["Table"][frame_idx] = table
         return output
+
+    def frameDifference(self, pframe, frame):
+        # Black and White images
+        pframe = cv2.cvtColor(pframe, cv2.COLOR_BGR2GRAY)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        # Gaussian blur for the images
+        pframe = cv2.GaussianBlur(pframe, (21, 21), 0)
+        frame = cv2.GaussianBlur(frame, (21, 21), 0)
+        # Frames substraction
+        difference = cv2.absdiff(pframe, frame)
+        difference = cv2.threshold(difference, 7, 255, cv2.THRESH_BINARY)[1]
+        difference = cv2.dilate(difference, None, iterations=2)
+        return difference
 
     def cleanDictionnary(self):
         data = {
