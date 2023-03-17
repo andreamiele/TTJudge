@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 1:38:16 pm
+# Last Modified: Friday, 17th March 2023 1:42:57 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -163,10 +163,14 @@ class JudgeHelper:
     def detect_hits(self, data):
         """ """
 
-    def saveImgs():
+    def saveImgs(self, data, videoPath, load):  # TODO
         return None
 
-    def runGame():
+    def runGame(self, videoPath, load, save=True):
+        data = self.cleanDictionnary()
+
+        if save:
+            self.saveImgs(data, videoPath, load)
         return None
 
 
@@ -177,4 +181,5 @@ if __name__ == "__main__":
     x = JudgeHelper(start, end, saved)
     self = x
     path = ROOT_PATH + "/Data/Train/xxx"
+    load = True
     x.runGame()
