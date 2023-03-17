@@ -5,11 +5,12 @@ In Spring 2023, I did this personal project in order to create a tennis table re
 **Andrea Miele**
 
 See the report [here](/Reports/) <br>
-See [requirements.txt](requirements.txt) for needed dependencies.
 
 ```shell
 pip install -r requirements.txt
 ```
+
+See [requirements.txt](requirements.txt) for needed dependencies.
 
 # Introduction
 
