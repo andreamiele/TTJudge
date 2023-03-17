@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 1:19:12 pm
+# Last Modified: Friday, 17th March 2023 1:38:16 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -91,6 +91,11 @@ class JudgeHelper:
             output["Table"][i] = table
         return output
 
+    def findBall(self, data, previousFrame, frame, frameIndex):
+        """
+        using a frame and previous frame, this computes the difference between them and finds the ball using the classic, neighbor, and backtracking methods and updating 'data'
+        """
+
     def frameDifference(self, pframe, frame):
         # Black and White images
         pframe = cv2.cvtColor(pframe, cv2.COLOR_BGR2GRAY)
@@ -154,6 +159,9 @@ class JudgeHelper:
             "Step 4 - Contours": {},
         }
         return data
+
+    def detect_hits(self, data):
+        """ """
 
     def saveImgs():
         return None
