@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 10:05:16 am
+# Last Modified: Friday, 17th March 2023 11:00:38 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -50,6 +50,25 @@ class JudgeHelper:
         self.start = start
         self.end = end
         self.saved = saved
+
+    def load_video(self, videoPath, loadFrames):  # Top Level
+        if loadFrames:
+            stream = FrameReader(start=self.frame_start, end=self.frame_end)
+            nbFrame = len(stream)
+        else:
+            cap = cv2.VideoCapture(videoPath)
+            nbFrame = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+            stream = CamGear(source=videoPath).start()
+        return stream, nbFrame
+
+    def detectTable(self, output, frame, frame_idx):  # Top Level
+        """
+        detecting the table with semantic segmentation inside the frame
+        """
+        # TODO run the actual segmentation model
+        table = [1, 1, 1,1, 1, 1, 1, 1]
+        output["Table"][frame_idx] = table
+        return output
 
     def cleanDictionnary(self):
         data = {
