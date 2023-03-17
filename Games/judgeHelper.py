@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 7:36:19 pm
+# Last Modified: Friday, 17th March 2023 7:52:24 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -158,7 +158,19 @@ class JudgeHelper:
         }
         return data
 
-    def detect_hits(self, data):
+    def interpolateBallTrajectory(self, data):
+        """ """
+
+    def detectHits(self, data):
+        """ """
+
+    def detectNetHits(self, data):
+        """ """
+
+    def detectArcsInterpolated(self, data):
+        """ """
+
+    def detectMissingEvents(self, data):
         """ """
 
     def saveImgs(self, data, videoPath, load):  # TODO
