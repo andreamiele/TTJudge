@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 11:24:18 am
+# Last Modified: Friday, 17th March 2023 1:02:18 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -44,6 +44,8 @@ from Functions.visualization import (
     showExtrArcC,
     showFrameNb,
     showTable,
+    contourCenter,
+    contourMaxMin,
 )
 
 
@@ -62,6 +64,19 @@ class JudgeHelper:
             nbFrame = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
             stream = CamGear(source=videoPath).start()
         return stream, nbFrame
+
+    def s1Ball(self, data, frame_idx):  # Global Helper
+        """
+        finding the ball from step1, whether it's in classic/neighbor/backtracked
+        - returns None if there is no ball
+        """
+        if frame_idx in data["Step 1 - Ball - Class"]:
+            return data["Step 1 - Ball - Class"][frame_idx]
+        elif frame_idx in data["Step 1 - Ball - Neigh"]:
+            return data["Step 1 - Ball - Neigh"][frame_idx]
+        elif frame_idx in data["Step 1 - Ball - Back"]:
+            return data["Step 1 - Ball - Back"][frame_idx]
+        return None
 
     def detectTable(self, output, frame, frame_idx):  # Top Level
         """

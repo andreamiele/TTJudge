@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # GitHub: https://www.github.com/andreamiele
 # -----
-# Last Modified: Sunday, 12th March 2023 10:32:59 am
+# Last Modified: Friday, 17th March 2023 1:00:28 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -56,6 +56,13 @@ def contourMaxMin(contours):
         max_x = max(max_x, contour[:, :, 0].max())
         max_y = max(max_y, contour[:, :, 1].max())
     return min_x, min_y, max_x, max_y
+
+
+def wContour(self, contour):
+    """
+    detecting if the contour is white (showing movement) or black (gaps between movement)
+    """
+    return True
 
 
 def showTable(img, table, color=(100, 100, 100), thickness=2):
