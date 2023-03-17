@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 11:28:13 am
+# Last Modified: Friday, 17th March 2023 11:33:57 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -19,8 +19,8 @@
 import cv2
 import numpy as np
 
-circle = cv2.imread("Testing\circle.png")
-star = cv2.imread("Testing\star.png")
+circle = cv2.imread("Testing\images\circle.png")
+star = cv2.imread("Testing\images\star.png")
 subtracted = cv2.subtract(star, circle)
 
 
