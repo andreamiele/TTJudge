@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 9:49:03 am
+# Last Modified: Friday, 17th March 2023 10:05:16 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -50,6 +50,26 @@ class JudgeHelper:
         self.start = start
         self.end = end
         self.saved = saved
+
+    def cleanDictionnary(self):
+        data = {
+            "Table": {},
+            "All Contours": {},
+            "Step 1 - Ball - Class": {},
+            "Step 1 - Ball - Neigh": {},
+            "Step 1 - Ball - Back": {},
+            "Step 2 - Events": {},
+            "Step 2 - Ball - Contours": {},
+            "Step 2 - Ball - Centers": {},
+            "Step 2 - Arcs": [],
+            "Step 3 - Ball - Inter Event Centers": {},
+            "Step 3 - Ball - Inter Arc Centers": {},
+            "Step 3 - Ball - Ball Centers": {},
+            "Step 4 - Events": {},
+            "Step 4 - Arcs": [],
+            "Step 4 - Contours": {},
+        }
+        return data
 
     def saveImgs():
         return None
