@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 11:00:38 am
+# Last Modified: Friday, 17th March 2023 11:01:25 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -66,7 +66,7 @@ class JudgeHelper:
         detecting the table with semantic segmentation inside the frame
         """
         # TODO run the actual segmentation model
-        table = [1, 1, 1,1, 1, 1, 1, 1]
+        table = [1, 1, 1, 1, 1, 1, 1, 1]
         output["Table"][frame_idx] = table
         return output
 
