@@ -7,6 +7,10 @@ In Spring 2023, I did this personal project in order to create a tennis table re
 See the report [here](/Reports/) <br>
 See [requirements.txt](requirements.txt) for needed dependencies.
 
+```shell
+pip install -r requirements.txt
+```
+
 # Introduction
 
 This project analyzes ping pong/tennis table games from the ground up, identifying the table, tracking the ball, and detecting events. This information may be used to referee a ping pong game and develop additional training activities.
