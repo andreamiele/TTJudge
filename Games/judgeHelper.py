@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 1:42:57 pm
+# Last Modified: Friday, 17th March 2023 7:36:19 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -16,8 +16,6 @@
 #
 #  ==============================================================================
 import sys
-
-sys.path.append("/usr/local/lib/python3.10.5/site-packages")
 from os.path import abspath, dirname
 import cv2
 import numpy as np
