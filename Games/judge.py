@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 10:49:28 am
+# Last Modified: Friday, 17th March 2023 10:50:23 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -52,3 +52,6 @@ if __name__ == "__main__":
     video = ROOT_PATH + "/Data/Train/xxx"
     loaded = False
     picklePath = None
+    makeVideo = True
+    saveFrames = False
+    x.run()
