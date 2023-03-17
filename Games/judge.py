@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 10:48:41 am
+# Last Modified: Friday, 17th March 2023 10:49:28 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -49,4 +49,6 @@ if __name__ == "__main__":
     end = 0 - saved
     x = Judge(start, end, saved)
     self = x
-    video = ROOT_PATH
+    video = ROOT_PATH + "/Data/Train/xxx"
+    loaded = False
+    picklePath = None
