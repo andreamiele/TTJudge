@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 1:09:20 pm
+# Last Modified: Friday, 17th March 2023 1:19:12 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -67,7 +67,7 @@ class JudgeHelper:
             stream = CamGear(source=videoPath).start()
         return stream, nbFrame
 
-    def s1Ball(self, data, frame_idx):  # Global Helper
+    def s1Ball(self, data, frame_idx):
         """
         finding the ball from step1, whether it's in classic/neighbor/backtracked
         - returns None if there is no ball
@@ -80,13 +80,15 @@ class JudgeHelper:
             return data["Step 1 - Ball - Back"][frame_idx]
         return None
 
-    def detectTable(self, output, frame, frame_idx):  # Top Level
+    def detectTable(self, output, frame, frame_idx):
         """
         detecting the table with segmentation inside the frame
         """
         # TODO run the actual segmentation model
         table = [1, 1, 1, 1, 1, 1, 1, 1]
         output["Table"][frame_idx] = table
+        for i in range(frame_idx - 100, frame_idx):
+            output["Table"][i] = table
         return output
 
     def frameDifference(self, pframe, frame):
@@ -116,14 +118,22 @@ class JudgeHelper:
             current_contour = contours.pop()
             added = False
             for i, contour_list in enumerate(contoursList):
-                if self._contour_dist(current_contour, contour_list[-1]) < 40 and (
-                    not added
-                ):
+                if contourDist(current_contour, contour_list[-1]) < 40 and (not added):
                     contoursList[i] = contour_list + [current_contour]
                     added = True
             if not added:
                 contoursList.append([current_contour])
         return contoursList
+
+    def frameDifferenceContours(self, frame1, frame2):
+
+        diff = self.frameDifference(frame1, frame2)
+        # ! temporarily blacking out kids in the background
+        diff[336:535, 1080:1400] = 0
+        diff[372:545, 360:660] = 0
+        raw_contours = self.findContours(diff)
+        contours = self.contoursList(raw_contours)
+        return diff, contours
 
     def cleanDictionnary(self):
         data = {
