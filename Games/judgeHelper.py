@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Saturday, 18th March 2023 8:45:12 am
+# Last Modified: Saturday, 18th March 2023 8:47:50 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -97,7 +97,12 @@ class JudgeHelper:
         f1_min_x, f1_min_y, f1_max_x, _ = contourMaxMin(frame_1_ball)
         found = []
         for contour in contours:
-            min_x, min_y, max_x, _ = contourMaxMin(contour_l)
+            min_x, min_y, max_x, _ = contourMaxMin(contour)
+            left = abs(f1_min_x - min_x) < 50
+            right = abs(f1_max_x - max_x) < 50
+            top_bottom = abs(f1_min_y - min_y) < 25
+            if (left or right) and top_bottom and wContour(contour):
+                found.append(contour)
 
     def findBallClass(self, table, contours):
         """
