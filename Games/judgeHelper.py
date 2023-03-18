@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Saturday, 18th March 2023 8:37:33 am
+# Last Modified: Saturday, 18th March 2023 8:41:10 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -89,7 +89,19 @@ class JudgeHelper:
             output["Table"][i] = table
         return output
 
-    def _remove_net_area_contours(self, data, contours, frame_idx):
+    def findBallNeigh(self, frame_1_ball, contours):
+        """
+        locating the ball in the frame2 contours, based on the location of the ball in frame1
+        - the ball in frame2 must be close to the ball in frame1
+        """
+
+    def findBallClass(self, table, contours):
+        """
+        finding the ball in the frame the "classic" way: the ball must be towards the middle of the table,
+        with only one contour match (the ball) and a good distance from any other movement
+        """
+
+    def removeNetContours(self, data, contours, frame_idx):
         """
         Taking out any contours caused by a net hit so we can just focus on the ball
         """
