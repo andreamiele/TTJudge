@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 7:52:24 pm
+# Last Modified: Saturday, 18th March 2023 8:37:33 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -89,10 +89,43 @@ class JudgeHelper:
             output["Table"][i] = table
         return output
 
+    def _remove_net_area_contours(self, data, contours, frame_idx):
+        """
+        Taking out any contours caused by a net hit so we can just focus on the ball
+        """
+
     def findBall(self, data, previousFrame, frame, frameIndex):
         """
         using a frame and previous frame, this computes the difference between them and finds the ball using the classic, neighbor, and backtracking methods and updating 'data'
         """
+        diff, contours = self.frameDifferenceContours(previousFrame, frame)
+        data["All Contours"][frame_idx] = contours
+        contours = self.removeNetContours(data, contours, frame_idx)
+        table = data["Table"][frame_idx]
+        prev_ball_contour = (
+            data["Step 1 - Ball - Class"][frame_idx - 1]
+            if frame_idx - 1 in data["Step 1 - Ball - Class"]
+            else None
+        )
+        prev_ball_contour = (
+            data["Step 1 - Ball - Neigh"][frame_idx - 1]
+            if frame_idx - 1 in data["Step 1 - Ball - Neigh"]
+            and prev_ball_contour is None
+            else prev_ball_contour
+        )
+        classic = False
+        ball = (
+            None
+            if prev_ball_contour is None
+            else self.findBallNeigh(prev_ball_contour, contours)
+        )
+        if ball is None:
+            classic = True
+            ball = self.findBallClass(table, contours)
+        if ball is not None:
+            key = "Step 1 - Ball - Class" if classic else "Step 1 - Ball - Class"
+            data[key][frame_idx] = ball
+        return data
 
     def frameDifference(self, pframe, frame):
         # Black and White images
