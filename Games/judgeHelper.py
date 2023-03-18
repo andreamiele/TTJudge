@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Saturday, 18th March 2023 8:59:04 am
+# Last Modified: Saturday, 18th March 2023 9:00:22 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -103,6 +103,10 @@ class JudgeHelper:
             top_bottom = abs(f1_min_y - min_y) < 25
             if (left or right) and top_bottom and wContour(contour):
                 found.append(contour)
+        #
+        return (
+            min(found, key=lambda x: contourMaxMin((x)[3])) if len(found) > 0 else None
+        )
 
     def findBallClass(self, table, contours):
         """
