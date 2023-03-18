@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Saturday, 18th March 2023 8:41:10 am
+# Last Modified: Saturday, 18th March 2023 8:45:12 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -94,6 +94,10 @@ class JudgeHelper:
         locating the ball in the frame2 contours, based on the location of the ball in frame1
         - the ball in frame2 must be close to the ball in frame1
         """
+        f1_min_x, f1_min_y, f1_max_x, _ = contourMaxMin(frame_1_ball)
+        found = []
+        for contour in contours:
+            min_x, min_y, max_x, _ = contourMaxMin(contour_l)
 
     def findBallClass(self, table, contours):
         """
