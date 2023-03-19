@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Sunday, 19th March 2023 3:40:41 pm
+# Last Modified: Sunday, 19th March 2023 3:46:24 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -121,7 +121,7 @@ class JudgeHelper:
         minimum = float("inf")
         others = [subitem for item in otherCountours for subitem in item]
         for x in others:
-            distance = contourDist(ball[0], x)
+            distance = contourDist(self, ball[0], x)
             minimum = min(minimum, distance)
         return minimum
 
@@ -137,6 +137,12 @@ class JudgeHelper:
             if localisation and area:
                 ballIndexs.append(i)
         # TODO: check the distance
+        if len(ballIndexs) == 1:  # We only have one item
+            ball = contours[ballIndexs[0]]
+            nonBalls = [c for i, c in enumerate(contours) if i != ballIndexs[0]]
+            if self.minimumDistance(ball, nonBalls) > 300 and wContour(self, ball):
+                return ball
+        return None  # Else no balls
 
     def removeNetContours(self, data, contours, frame_idx):
         table = data["Table"][frame_idx]
