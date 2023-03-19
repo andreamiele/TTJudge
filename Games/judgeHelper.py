@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Sunday, 19th March 2023 3:29:53 pm
+# Last Modified: Sunday, 19th March 2023 3:37:01 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -116,6 +116,14 @@ class JudgeHelper:
         centers = [contourCenter(contour) for c in contourList]
         x = sum([c[0] for c in centers]) / len(centers)
         return (x > table[1] + 300) and (x < table[-1] - 300)
+
+    def minimumDistance(self, ball, otherCountours):
+        minimum = float("inf")
+        others = [subitem for item in non_ball_contours for subitem in item]
+        for x in otherCountours:
+            distance = contourDist(ball[0], x)
+            minimum = min(minimum, distance)
+        return minimum
 
     def findBallClass(self, table, contours):
         """
