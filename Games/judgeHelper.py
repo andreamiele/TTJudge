@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Sunday, 19th March 2023 11:44:23 am
+# Last Modified: Sunday, 19th March 2023 3:29:53 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -107,6 +107,15 @@ class JudgeHelper:
         return (
             min(found, key=lambda x: contourMaxMin((x)[3])) if len(found) > 0 else None
         )
+
+    def areaClassic(self, countourList):
+        area = sum([cv2.contourArea(contour) for c in contourList])
+        return 50 < area < 3000
+
+    def ballInTheMiddle(self, countourList, table):
+        centers = [contourCenter(contour) for c in contourList]
+        x = sum([c[0] for c in centers]) / len(centers)
+        return (x > table[1] + 300) and (x < table[-1] - 300)
 
     def findBallClass(self, table, contours):
         """
