@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Saturday, 18th March 2023 9:00:22 am
+# Last Modified: Sunday, 19th March 2023 11:44:23 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -115,9 +115,14 @@ class JudgeHelper:
         """
 
     def removeNetContours(self, data, contours, frame_idx):
-        """
-        Taking out any contours caused by a net hit so we can just focus on the ball
-        """
+        table = data["Table"][frame_idx]
+        table_middle_x = table[1] + ((table[-1] - table[1]) / 2)
+        new = []
+        for contour in contours:
+            contour_center = contourCenter((contour)[0])
+            if abs(contour_center - table_middle_x) > 75:
+                new.append(contour)
+        return new
 
     def findBall(self, data, previousFrame, frame, frameIndex):
         """
