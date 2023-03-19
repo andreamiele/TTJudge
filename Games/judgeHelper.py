@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Sunday, 19th March 2023 3:37:01 pm
+# Last Modified: Sunday, 19th March 2023 3:37:43 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -119,8 +119,8 @@ class JudgeHelper:
 
     def minimumDistance(self, ball, otherCountours):
         minimum = float("inf")
-        others = [subitem for item in non_ball_contours for subitem in item]
-        for x in otherCountours:
+        others = [subitem for item in otherCountours for subitem in item]
+        for x in others:
             distance = contourDist(ball[0], x)
             minimum = min(minimum, distance)
         return minimum
