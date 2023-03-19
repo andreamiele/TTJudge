@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Sunday, 19th March 2023 3:38:23 pm
+# Last Modified: Sunday, 19th March 2023 3:40:41 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -131,6 +131,12 @@ class JudgeHelper:
         with only one contour match (the ball) and a good distance from any other movement
         """
         ballIndexs = []
+        for i, contour in enumerate(contours):
+            area = self.areaClassic(contour)
+            localisation = self.ballInTheMiddle(contour, table)
+            if localisation and area:
+                ballIndexs.append(i)
+        # TODO: check the distance
 
     def removeNetContours(self, data, contours, frame_idx):
         table = data["Table"][frame_idx]
