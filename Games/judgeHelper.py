@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Sunday, 19th March 2023 3:37:43 pm
+# Last Modified: Sunday, 19th March 2023 3:38:23 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -130,6 +130,7 @@ class JudgeHelper:
         finding the ball in the frame the "classic" way: the ball must be towards the middle of the table,
         with only one contour match (the ball) and a good distance from any other movement
         """
+        ballIndexs = []
 
     def removeNetContours(self, data, contours, frame_idx):
         table = data["Table"][frame_idx]
