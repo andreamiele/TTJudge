@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Friday, 17th March 2023 10:50:23 am
+# Last Modified: Monday, 20th March 2023 10:06:11 pm
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -38,6 +38,12 @@ class Judge(JudgeHelper):
         self.player1_score = 0
         self.player2_score = 0
         self.font = ROOT_PATH + "/Games/score_font.ttf"
+
+    def _frame_draw_font(self, frame, font_size):
+        frame = Image.fromarray(frame)
+        draw = ImageDraw.Draw(frame)
+        font = ImageFont.truetype(self.font_path, font_size)
+        return frame, draw, font
 
     def run():
         return None
