@@ -7,7 +7,7 @@
 # Author: Andrea Miele (andrea.miele.pro@gmail.com, https://www.andreamiele.fr)
 # Github: https://www.github.com/andreamiele
 # -----
-# Last Modified: Sunday, 19th March 2023 11:07:34 pm
+# Last Modified: Monday, 20th March 2023 9:10:34 am
 # Modified By: Andrea Miele (andrea.miele.pro@gmail.com)
 # -----
 #
@@ -65,27 +65,27 @@ class JudgeHelper:
             stream = CamGear(source=videoPath).start()
         return stream, nbFrame
 
-    def s1Ball(self, data, frame_idx):
+    def s1Ball(self, data, frameIndex):
         """
         finding the ball from step1, whether it's in classic/neighbor/backtracked
         - returns None if there is no ball
         """
-        if frame_idx in data["Step 1 - Ball - Class"]:
-            return data["Step 1 - Ball - Class"][frame_idx]
-        elif frame_idx in data["Step 1 - Ball - Neigh"]:
-            return data["Step 1 - Ball - Neigh"][frame_idx]
-        elif frame_idx in data["Step 1 - Ball - Back"]:
-            return data["Step 1 - Ball - Back"][frame_idx]
+        if frameIndex in data["Step 1 - Ball - Class"]:
+            return data["Step 1 - Ball - Class"][frameIndex]
+        elif frameIndex in data["Step 1 - Ball - Neigh"]:
+            return data["Step 1 - Ball - Neigh"][frameIndex]
+        elif frameIndex in data["Step 1 - Ball - Back"]:
+            return data["Step 1 - Ball - Back"][frameIndex]
         return None
 
-    def detectTable(self, output, frame, frame_idx):
+    def detectTable(self, output, frame, frameIndex):
         """
         detecting the table with segmentation inside the frame
         """
         # TODO run the actual segmentation model
         table = [1, 1, 1, 1, 1, 1, 1, 1]
-        output["Table"][frame_idx] = table
-        for i in range(frame_idx - 100, frame_idx):
+        output["Table"][frameIndex] = table
+        for i in range(frameIndex - 100, frameIndex):
             output["Table"][i] = table
         return output
 
@@ -108,12 +108,12 @@ class JudgeHelper:
             min(found, key=lambda x: contourMaxMin((x)[3])) if len(found) > 0 else None
         )
 
-    def areaClassic(self, countourList):
-        area = sum([cv2.contourArea(contour) for c in contourList])
+    def areaClassic(self, contourList):
+        area = sum([cv2.contourArea(c) for c in contourList])
         return 50 < area < 3000
 
-    def ballInTheMiddle(self, countourList, table):
-        centers = [contourCenter(contour) for c in contourList]
+    def ballInTheMiddle(self, contourList, table):
+        centers = [contourCenter(c) for c in contourList]
         x = sum([c[0] for c in centers]) / len(centers)
         return (x > table[1] + 300) and (x < table[-1] - 300)
 
@@ -144,8 +144,8 @@ class JudgeHelper:
                 return ball
         return None  # Else no balls
 
-    def removeNetContours(self, data, contours, frame_idx):
-        table = data["Table"][frame_idx]
+    def removeNetContours(self, data, contours, frameIndex):
+        table = data["Table"][frameIndex]
         table_middle_x = table[1] + ((table[-1] - table[1]) / 2)
         new = []
         for contour in contours:
@@ -159,17 +159,17 @@ class JudgeHelper:
         using a frame and previous frame, this computes the difference between them and finds the ball using the classic, neighbor, and backtracking methods and updating 'data'
         """
         diff, contours = self.frameDifferenceContours(previousFrame, frame)
-        data["All Contours"][frame_idx] = contours
-        contours = self.removeNetContours(data, contours, frame_idx)
-        table = data["Table"][frame_idx]
+        data["All Contours"][frameIndex] = contours
+        contours = self.removeNetContours(data, contours, frameIndex)
+        table = data["Table"][frameIndex]
         prev_ball_contour = (
-            data["Step 1 - Ball - Class"][frame_idx - 1]
-            if frame_idx - 1 in data["Step 1 - Ball - Class"]
+            data["Step 1 - Ball - Class"][frameIndex - 1]
+            if frameIndex - 1 in data["Step 1 - Ball - Class"]
             else None
         )
         prev_ball_contour = (
-            data["Step 1 - Ball - Neigh"][frame_idx - 1]
-            if frame_idx - 1 in data["Step 1 - Ball - Neigh"]
+            data["Step 1 - Ball - Neigh"][frameIndex - 1]
+            if frameIndex - 1 in data["Step 1 - Ball - Neigh"]
             and prev_ball_contour is None
             else prev_ball_contour
         )
@@ -184,7 +184,7 @@ class JudgeHelper:
             ball = self.findBallClass(table, contours)
         if ball is not None:
             key = "Step 1 - Ball - Class" if classic else "Step 1 - Ball - Class"
-            data[key][frame_idx] = ball
+            data[key][frameIndex] = ball
         return data
 
     def frameDifference(self, pframe, frame):
