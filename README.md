@@ -1,5 +1,7 @@
 # TTJudge
 
+***UNFINISHED PROJECT***
+
 In Spring 2023, I did this personal project in order to create a tennis table referee based on videos.
 
 **Andrea Miele**
